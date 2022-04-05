@@ -1,0 +1,39 @@
+#
+# Weekly sync, powered by imjohnbo/issue-bot
+#
+name: Weekly Team Sync
+on:
+  schedule:
+  # Every day at noon
+  - cron: 0 5 * * TUE 
+
+jobs:
+  create_issue:
+    name: Create team sync issue
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Today's date
+      run: echo "TODAY=$(date '+%Y-%m-%d')" >> $GITHUB_ENV
+
+    # Generates and pins new standup issue, closes previous, writes linking comments, and assigns to all assignees in list
+    - name: Create team sync issue
+      uses: imjohnbo/issue-bot@v3
+      with:
+        assignees: "Blouwolf,GOAT-FARM3R"
+        labels: "teamsync"
+        title: Team Sync
+        body: |-
+          :wave: Hi, {{#each assignees}}@{{this}}{{#unless @last}}, {{/unless}}{{/each}}!
+          ## Standup for ${{ env.TODAY }}
+          1. What did you work on last week?
+          2. What are you working on this week?
+          3. What issues are blocking you?
+          
+          ### Discussion points
+          Any thing you would like to discuss?
+          
+        pinned: false
+        close-previous: false
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
