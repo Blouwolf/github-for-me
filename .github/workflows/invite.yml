@@ -1,7 +1,7 @@
 name: Inclusive Organization
 on:
-  issue:
-    labeled
+  issues:
+    types: [labeled]
 jobs:
   invite:
     if: ${{ github.event.label.name == 'invite' }}
