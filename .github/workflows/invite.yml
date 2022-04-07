@@ -12,5 +12,5 @@ jobs:
           organization: Spannetjie
           comment: "An invite has been sent to you to join the Spannetjie organization."
         env:
-          INVITE_TOKEN: ${{ secrets.INVITE_TOKEN}}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
  
