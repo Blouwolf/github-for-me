@@ -1,0 +1,16 @@
+# Clean up some logs
+name: Recycle bin
+on:
+  schedule:
+     - cron: '20 * * *'
+
+jobs:
+  build:
+    name: Clean it up o_0
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run it
+        env:
+          username: ${{ github.actor }}
+        run: |
+          curl -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/Blouwolf/github-for-me/actions/runs/23461524/logs
